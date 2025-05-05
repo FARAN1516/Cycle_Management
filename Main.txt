@@ -1,0 +1,310 @@
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.InputMismatchException;
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		 
+		
+        int adminuser =0;
+	    int godeep=0;
+	    int godeep_2 =0;
+		
+		Cycle_Management c1 = new Cycle_Management ();
+		Cycle_Renting  cr = new Cycle_Renting ();
+		
+		Scanner input = new Scanner (System.in);
+		
+		while (adminuser !=3) {
+			
+			try {
+		System.out.println("\n                -------------------------------");
+		System.out.println("                |       Welcome To            |");
+		System.out.println("                | Cycle Management System     |");
+		System.out.println("                -------------------------------");
+		System.out.println("\n\n                Press Enter To Operate -->");
+		System.out.println("                ----------------------------");
+	    System.out.println("                |    1. Admin Panel        |");
+	    System.out.println("                |    2.User Panel          |");
+	    System.out.println("                |    3.Exit                |");
+	    System.out.println("                ----------------------------");
+		
+       // String enter = input.nextLine ();
+	    
+	    adminuser = input.nextInt ();
+	    input.nextLine ();
+	    
+	    if (adminuser == 1) {
+	    	
+	    	System.out.println("Write The  Password To Enter To Admin Panel -->");
+	    	String passtoadmin = input.nextLine ();
+	    	
+	    	if (passtoadmin.equals (c1.getpassword ()) ) {
+	    	
+	    	
+	    
+	    godeep = 0;
+
+        while (godeep !=6) {
+        
+        System.out.println("\n                      ----------------");
+        System.out.println("                      |  ADMIN PANEL |");
+        System.out.println("                      ----------------");
+        System.out.println("         ------------------------------------------------");
+        System.out.println("         |  1.Add Cycle To Store                        |");
+        System.out.println("         |  2.Remove Cycle From Store                   |");
+        System.out.println("         |  3.Display All Cycles                        |");
+        System.out.println("         |  4.Display Available And Un-Available Cycles |");
+        System.out.println("         |  5.Display Transaction of Cycles             |");
+        System.out.println("         |  6.Exit                                      |");
+        System.out.println("         ------------------------------------------------");
+		
+		 godeep = input.nextInt();
+		 input.nextLine ();
+		
+		
+		switch (godeep){
+		
+		case 1 :
+		
+        c1.add_cycle ();
+		break;
+		
+		
+		
+		case 2 :
+			
+			try {
+				
+				boolean found_x = false ;
+			System.out.println("Enter The Cycle Id To Remove : ");
+			int removeid = input.nextInt();
+			input.nextLine ();
+			
+			BufferedReader reader = new BufferedReader (new FileReader ("Cycles.txt"));
+			BufferedReader reader2 = new BufferedReader (new FileReader ("Available Cycles.txt"));
+			
+			
+			String line_x1;
+			
+			while ((line_x1 = reader.readLine() ) != null) {
+				
+				if (line_x1 .contains("Id - " +removeid)) {
+					
+					found_x = true ;
+					break;
+					
+					
+				}
+				
+			}
+			
+			
+			
+			if (!found_x) {
+				
+				System.out.println("Cycle with Id - " +removeid+ " is not found");
+				
+			}
+			
+			
+			
+			
+			else {
+				String line_x2 ;
+				
+				while ((line_x2 = reader2.readLine()) != null) {
+					
+					if (line_x2 .contains("Id - "+removeid+   "   @Available")) {
+						
+						c1.remove_cycle (removeid);
+						break;
+						
+				}
+					
+					
+					     else if (line_x2.contains("Id - "+removeid+   "   ##Unavailable")) {
+						   
+						 System.out.println("The Cycle You Want To Remove in on Rent . Are You Sure To remove it ?");
+						 System.out.println("                1. YES             2. NO");
+						 int confirm_x = input.nextInt () ;
+						 input.nextLine ();
+						 
+						 if (confirm_x == 1) {
+							 c1.remove_cycle_which_is_on_rent (removeid);
+							 break;
+							 
+						 }
+						 
+						 
+						 else if (confirm_x == 2 ) {
+							System.out.println("Canceled.");
+							break;
+						 }
+						 
+						 else {
+						 System.out.println("Wrong Selection Between 1 or 2");
+						 break;
+						
+					     }
+					
+					
+			
+					
+				          }
+				
+					
+			              }
+			
+	
+		               	}
+			
+			
+			}
+			
+			
+			
+
+			catch (Exception e ) {
+				System.out.println("Exception Occured . " + e);
+			}
+			
+			
+			
+			
+		
+		break;
+		
+		
+
+		
+		case 3 :
+			c1.display_cycle ();
+		    break;
+		    
+		    
+		case 4 :
+			c1.display_available_cycle();
+			break;
+			
+		    
+		case 5 :
+			cr.display_renting_details();
+			break;
+		
+
+		case 6 :
+			System.out.println("Exited . Thank You");
+			break;
+		
+		
+			default :
+			System.out.println("Invalid Option. Please Choose Any Valid Option");
+			
+		}
+		
+		
+		
+        }
+        
+	    	} 
+	    	
+	    	else  
+	    	{
+	    		System.out.println("      Password is Incorrect ");
+	    	}
+		
+	    }
+	    
+	    
+	    else if (adminuser ==2) {
+	    	
+	    	godeep_2 = 0;
+	    
+	    while (godeep_2 !=4) {
+	    
+	    
+	    	
+	    	
+	    	System.out.println("\n          ---------------------------");
+	    	System.out.println("          | Welcome to user Panel   |");
+	    	System.out.println("          ---------------------------\n");
+	    	System.out.println("             1.Display Available Cycles ");
+	    	System.out.println("             2.Rent A Cycle      ");
+	    	System.out.println("             3.Return Cycle");
+	    	System.out.println("             4.Exit Option   ");
+	    	
+	    	godeep_2 = input.nextInt();
+	    	 input.nextLine ();
+	    	
+	    	switch (godeep_2) {
+	    	
+	    	case 1 :
+	    		cr.display_available_cycle();
+	    		
+	    		break;
+	    	
+	    	case 2 :
+	    		cr.take_cycle_Rent();
+	    		break;
+	    		
+	    		
+	    	case 3 :
+	    		cr.return_cycle();
+	    		break;
+	    		
+	    		
+	    	case 4 :
+	    		System.out.println("Exited");
+	    		break;
+	    	
+	    	
+	    	default :
+	    		System.out.println("Invalid Input");
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	} 
+	    	
+	    } 
+	    
+	    } 
+	    
+	    else if (adminuser ==3) {
+	    	System.out.println("Exited From Management");
+	    }
+	    
+	    
+	    else {
+	    	System.out.println("Invalid input");
+	    }
+	  
+	    
+		}
+		
+		
+		catch (InputMismatchException e ) {
+			System.out.println("Your Input Giving is Wrong. Maybe u have typed String when");
+			System.out.println("going to admin or user panel instead of int value. " +e);
+			input.nextLine();
+		}
+		
+		catch (Exception e ) {
+			System.out.println("There is a problem . " +e);
+		}
+
+		
+		} 
+		
+	
+input.close ();
+		
+
+} 
+}
