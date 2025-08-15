@@ -1,2 +1,1 @@
-# Cycle_Management
-This is a basic [Cycle Management] system using java . Where Admin can add ,remove and display cycles . And User can rent available cycles and return the cycles . And all the informations like - List of Cycles , and who is taking rent the cycles and when  returning e.t.c are stored in  [File].
+This is a basic | CYCLE MANAGEMENT SYSTEM | developed in Java, where the admin can add, remove, and display cycles. Users can rent available cycles and return them. All information — such as the list of cycles, rental records, and return details — is stored in files.
